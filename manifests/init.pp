@@ -46,6 +46,7 @@ class nodejs (
   $nodejs_version_path = "/usr/local/node/node-${$node_version}"
   $nodejs_default_path = '/usr/local/node/node-default'
   $nodejs_default_node = "${target_dir}/node"
+  $nodejs_default_npm  = "${target_dir}/npm"
 
   file { $nodejs_default_path:
     ensure  => link,
@@ -56,6 +57,12 @@ class nodejs (
   file { $nodejs_default_node:
     ensure  => link,
     target  => "${nodejs_default_path}/bin/node",
+    require => File[$nodejs_default_path],
+  }
+
+  file { $nodejs_default_npm:
+    ensure  => link,
+    target  => "${nodejs_default_path}/bin/npm",
     require => File[$nodejs_default_path],
   }
 

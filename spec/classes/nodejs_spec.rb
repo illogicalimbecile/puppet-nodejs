@@ -25,6 +25,11 @@ describe 'nodejs', :type => :class do
       .with_target('/usr/local/node/node-default/bin/node')
     }
 
+    it { should contain_file('/usr/local/bin/npm') \
+      .with_ensure('link') \
+      .with_target('/usr/local/node/node-default/bin/npm')
+    }
+
     it { should contain_file('/etc/profile.d/nodejs.sh') }
   end
 
@@ -55,6 +60,11 @@ describe 'nodejs', :type => :class do
     it { should contain_file('/bin/node') \
       .with_ensure('link') \
       .with_target('/usr/local/node/node-default/bin/node')
+    }
+
+    it { should contain_file('/bin/npm') \
+      .with_ensure('link') \
+      .with_target('/usr/local/node/node-default/bin/npm')
     }
   end
 
