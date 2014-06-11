@@ -20,6 +20,11 @@ describe 'nodejs', :type => :class do
       .with_target('/usr/local/node/node-v0.10.20')
     }
 
+    it { should contain_file('/usr/local/bin/node') \
+      .with_ensure('link') \
+      .with_target('/usr/local/node/node-default/bin/node')
+    }
+
     it { should contain_file('/etc/profile.d/nodejs.sh') }
   end
 
@@ -46,6 +51,11 @@ describe 'nodejs', :type => :class do
     it { should contain_nodejs__install('nodejs-stable') \
       .with_target_dir('/bin') \
     }
+
+    it { should contain_file('/bin/node') \
+      .with_ensure('link') \
+      .with_target('/usr/local/node/node-default/bin/node')
+    }
   end
 
   describe 'without NPM' do
@@ -68,4 +78,3 @@ describe 'nodejs', :type => :class do
     }
   end
 end
-

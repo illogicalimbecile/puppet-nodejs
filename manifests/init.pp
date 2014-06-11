@@ -45,11 +45,18 @@ class nodejs (
 
   $nodejs_version_path = "/usr/local/node/node-${$node_version}"
   $nodejs_default_path = '/usr/local/node/node-default'
+  $nodejs_default_node = "${target_dir}/node"
 
   file { $nodejs_default_path:
     ensure  => link,
     target  => $nodejs_version_path,
     require => Nodejs::Install["nodejs-${version}"],
+  }
+
+  file { $nodejs_default_node:
+    ensure  => link,
+    target  => "${nodejs_default_path}/bin/node",
+    require => File[$nodejs_default_path],
   }
 
   if $::osfamily != 'FreeBSD' {
